@@ -58,6 +58,7 @@ LEDs:
         - install udev rules, systemd unit, and daemon binary manually.
         - `sudo udevadm control --reload`
         - `sudo systemd daemon-reload`
+    1. Adjust user locked by `vlock(1)` by writing to `/etc/tty-switcher.conf`
 
 ## Build from Source
 

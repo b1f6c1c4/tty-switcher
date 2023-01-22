@@ -1,0 +1,1 @@
+SUBSYSTEM=="hidraw", ATTRS{idVendor}=="239a", ATTRS{idProduct}=="0108", ACTION=="add", TAG+="systemd", ENV{SYSTEMD_WANTS}="switcher.service"

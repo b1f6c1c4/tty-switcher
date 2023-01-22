@@ -1,7 +1,9 @@
 #include <fcntl.h>
+#include <grp.h>
 #include <hidapi/hidapi.h>
 #include <linux/kd.h>
 #include <linux/vt.h>
+#include <pwd.h>
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
@@ -51,15 +53,22 @@ int main(void) {
             //      perror("ioctl");
             //  break;
             case SWTCHR_LOCK:
-                printf("lock...\n");
+                if (ioctl(fd, VT_ACTIVATE, 63))
+                    perror("ioctl");
                 pkt.payload = SWTCHR_ON;
                 hid_write(handle, (unsigned char*)&pkt, sizeof(pkt));
                 pid_t pid;
                 if (!(pid = fork())) {
                     char *args[] = { "/usr/bin/vlock", "-a", NULL };
                     int uid = getuid(), gid = getgid();
-                    if (getenv("SUDO_UID")) uid = atoi(getenv("SUDO_UID"));
-                    if (getenv("SUDO_GID")) gid = atoi(getenv("SUDO_GID"));
+                    if (getenv("SUDO_UID"))
+                        uid = atoi(getenv("SUDO_UID"));
+                    else if (getenv("SUDO_USER")) {
+                        struct passwd *pwd = getpwnam(getenv("SUDO_USER"));
+                        if (pwd) uid = pwd->pw_uid;
+                    }
+                    if (getenv("SUDO_GID"))
+                        gid = atoi(getenv("SUDO_GID"));
                     setgid(gid);
                     setuid(uid);
                     execv("/usr/bin/vlock", args);
@@ -67,7 +76,6 @@ int main(void) {
                     return 1;
                 }
                 waitpid(pid, NULL, 0);
-                printf("unlock...\n");
                 pkt.payload = SWTCHR_OFF;
                 hid_write(handle, (unsigned char*)&pkt, sizeof(pkt));
                 break;

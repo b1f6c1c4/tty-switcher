@@ -1,0 +1,14 @@
+[Unit]
+Description=Switch b/w TTYs (Linux Console), call vlock(1), etc.
+Documentation=man:tty-switcher
+
+[Service]
+ExecStart=/usr/bin/tty-switcherd
+Type=simple
+TimeoutSec=infinity
+ExitType=cgroup
+StandardInput=tty-force
+StandardOutput=tty
+TTYPath=/dev/tty63
+TTYReset=1
+TTYVHangup=yes

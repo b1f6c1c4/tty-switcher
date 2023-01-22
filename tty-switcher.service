@@ -1,6 +1,6 @@
 [Unit]
 Description=Switch b/w TTYs (Linux Console), call vlock(1), etc.
-Documentation=man:tty-switcher
+Documentation=https://github.com/b1f6c1c4/tty-switcher
 
 [Service]
 ExecStart=/usr/bin/tty-switcherd

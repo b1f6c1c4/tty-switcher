@@ -6,7 +6,7 @@ pkgdesc="Switch b/w TTYs (Linux Console), call vlock(1), etc."
 arch=('i686' 'x86_64')
 url="https://github.com/b1f6c1c4/tty-switcher"
 license=('MIT')
-depends=('udev' 'systemd' 'hidapi')
+depends=('udev' 'systemd' 'hidapi' 'kbd')
 source=()
 sha256sums=()
 

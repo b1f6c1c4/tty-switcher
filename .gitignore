@@ -1,1 +1,4 @@
-/tty-switcherd
+tty-switcherd
+/pkg
+/*.pkg.tar.zst
+/*.pkg.tar.zst.sig

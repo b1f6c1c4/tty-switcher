@@ -1,1 +1,0 @@
-qmk_firmware/keyboards/adafruit/macropad/keymaps/tty-switcher/switcher.h

@@ -10,7 +10,7 @@
 +--------------------------------++---+---+
 |+-------+-------+-------+-------+        |
 || tty1  | tty2  | tty3  | tty4  | +-----++
-||       |       |       |       | |  O  ||
+||V: tabp|       |V: tabn|       | |  O  ||
 ||B: Prev|V: ^Wk |B: Next|       | |  L  ||
 |+-------+-------+-------+-------+ |  E  ||
 || tty5  | tty6  | tty7  | tty8  | |  D  ||
@@ -19,7 +19,7 @@
 |+-------+-------+-------+-------+ +-----++
 || vlock |browser|  VIM  | Go to | | tty ||
 ||  ALL  | tabs  |       | prev- | |roter||
-|| ttys! |       |V: ^W^W|  tty  | |/BOOT||
+|| ttys! |B: New |V: ^W^W|  tty  | |/BOOT||
 |+-------+-------+-------+-------+ +-----+|
 +--------------------------------+-+------+
 ```
@@ -75,13 +75,15 @@ LEDs:
     1. `cd ~`
     1. `git gets -X https://github.com/b1f6c1c4/tty-switcher`
     1. `cd ~/tty-switcher`
+    1. `ln -s "$PWD/qmk_firmware" ~/`
     1. Note: you must put it here because [qmk-cli](https://github.com/qmk/qmk_cli) is too stupid.
 1. Compile:
     1. `sudo pacman -S qmk`
-    1. `qmk setup -b tty-switcher`
+    1. `sudo pacman -S --asdeps python-pyserial python-pillow`
+    1. `qmk setup -b HEAD`
     1. `qmk config compile.keyboard=adafruit/macropad`
     1. `qmk config compile.keymap=tty-switcher`
-    1. `qmk compile -j 8`
+    1. `qmk compile -j <...>`
 1. Result file is `~/qmk_firmware/adafruit_macropad_tty-switcher.uf2`
 
 ### For software:
